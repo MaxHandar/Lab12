@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp3
 {
-    internal class Program
+    public class Program
     {
         static int GetExactNumber(int min, int max)
         {

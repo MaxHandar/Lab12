@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -10,10 +11,10 @@ using Lab12_2;
 
 namespace ConsoleApp3
 {
-    internal class MyHashTable<T> where T : IInit, ICloneable, new()
+    public class MyHashTable<T> where T : IInit, ICloneable, new()
     {
         Random rnd = new Random();
-        Point<T>?[] table;
+        public Point<T>?[] table;
         public int Capacity => table.Length;
 
         //конструктор
@@ -23,6 +24,7 @@ namespace ConsoleApp3
         }
 
         //public
+        [ExcludeFromCodeCoverage]
         public void PrintTable()
         {
             for (int i = 0; i < table.Length; i++)
@@ -67,6 +69,7 @@ namespace ConsoleApp3
                 current.Next.Pred = current;
             }
         }
+        [ExcludeFromCodeCoverage]
         public Point<T> MakeRandomData()
         {
             T data = new T();
@@ -105,6 +108,7 @@ namespace ConsoleApp3
             }
             return new Point<T>(data);
         }
+        [ExcludeFromCodeCoverage]
         public void FillHashTableRand()
         {
             if (table == null || table.Length == 0)
@@ -193,46 +197,49 @@ namespace ConsoleApp3
 
         public bool RemoveData(T data)
         {
-            Point<T>? current;
             int index = GetIndex(data);
-            if (table[index].Data.Equals(data))
+            if (table[index] == null) // Нет элементов в этой ячейке
             {
-                if (table[index].Next == null) //один элемент в цепочке
+                return false;
+            }
+
+            if (table[index].Data.Equals(data)) // Первый элемент в цепочке
+            {
+                if (table[index].Next == null) // Только один элемент в цепочке
                 {
                     table[index] = null;
                 }
-                else
+                else // Более одного элемента в цепочке
                 {
                     table[index] = table[index].Next;
                     table[index].Pred = null;
                 }
                 return true;
             }
-            else
+
+            Point<T>? current = table[index].Next;
+            Point<T>? previous = table[index];
+
+            while (current != null)
             {
-                current = table[index];
-                while (current != null)
+                if (current.Data.Equals(data))
                 {
-                    if (current.Data.Equals(data))
+                    previous.Next = current.Next;
+                    if (current.Next != null) // Если есть следующий элемент в цепочке
                     {
-                        Point<T>? pred = current.Pred;
-                        Point<T>? next = current.Next;
-                        pred.Next = next;
-                        current.Pred = null;
-                        if (next != null)
-                        {
-                            next.Pred = pred;
-                        }
-                        return true;
+                        current.Next.Pred = previous;
                     }
-                    current = current.Next;
+                    return true;
                 }
+                previous = current;
+                current = current.Next;
             }
-            return false;
+
+            return false; // Элемент не найден
         }
 
         //private
-        int GetIndex(T data)
+        public int GetIndex(T data)
         {
             return Math.Abs(data.GetHashCode()) % Capacity;
         }

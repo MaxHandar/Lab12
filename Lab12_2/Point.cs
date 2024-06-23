@@ -7,7 +7,7 @@ using Lab12_2;
 
 namespace Lab12_2
 {
-    internal class Point<T>
+    public class Point<T>
     {
         public T? Data { get; set; }
         public Point<T>? Next { get; set; }

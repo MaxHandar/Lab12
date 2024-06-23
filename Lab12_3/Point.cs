@@ -7,7 +7,7 @@ using Lab12_3;
 
 namespace Lab12_2
 {
-    internal class Point<T> where T: IComparable
+    public class Point<T> where T: IComparable
     {
         public T? Data { get; set; }
         public Point<T>? Right { get; set; }

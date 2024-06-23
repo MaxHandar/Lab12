@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Lab12_4
 {
-    internal class MyCollection<T> : MyList<T>, IList<T>, IEnumerable<T> where T : IInit, ICloneable, new()
+    public class MyCollection<T> : MyList<T>, IList<T>, IEnumerable<T> where T : IInit, ICloneable, new()
     {
         public bool IsReadOnly => false;
 
@@ -87,7 +87,7 @@ namespace Lab12_4
         }
     }
 
-    internal class MyEnumerator<T> : IEnumerator<T> where T : IInit, ICloneable, new()
+    public class MyEnumerator<T> : IEnumerator<T> where T : IInit, ICloneable, new()
     {
         Point<T>? beg;
         Point<T>? current;

@@ -9,10 +9,10 @@ using Lab12_2;
 
 namespace Lab12_3
 {
-    internal class MyTree<T> where T: IInit, IComparable, ICloneable, new()
+    public class MyTree<T> where T: IInit, IComparable, ICloneable, new()
     {
-        Point<T> root = null;
-        bool isFindTree = false;
+        public Point<T> root = null;
+        public bool isFindTree = false;
         Random rnd = new Random();
 
         int count = 0;
@@ -68,7 +68,7 @@ namespace Lab12_3
         }
 
         //ИСД
-        Point<T>? MakeTree(int length, Point<T>? point)
+        public Point<T>? MakeTree(int length, Point<T>? point)
         {
             if (length == 0)
             {
@@ -84,7 +84,7 @@ namespace Lab12_3
             newItem.Right = MakeTree(nr, newItem.Right);
             return newItem;
         }
-        void Show(Point<T>? point, int spaces=5)
+        public void Show(Point<T>? point, int spaces=5)
         {
             if (point != null)
             {
@@ -98,7 +98,7 @@ namespace Lab12_3
             }
         }
         
-        void AddPoint(T data)
+        public void AddPoint(T data)
         {
             Point<T>? point = root;
             Point<T>? current = null;
@@ -138,7 +138,7 @@ namespace Lab12_3
             count++;
         }
 
-        void TransformToArray(Point<T>? point, T[] array, ref int current)
+        public void TransformToArray(Point<T>? point, T[] array, ref int current)
         {
             if (point != null)
             {

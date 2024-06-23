@@ -7,7 +7,7 @@ using ClassLibraryLab10;
 
 namespace Lab12_4
 {
-    internal class MyList<T> where T : IInit, ICloneable, new()
+    public class MyList<T> where T : IInit, ICloneable, new()
     {
         public Point<T>? beg = null;
         public Point<T>? end = null;

@@ -8,10 +8,10 @@ using Lab12;
 
 namespace ConsoleApp3
 {
-    internal class MyList<T> where T: IInit, ICloneable, new()
+    public class MyList<T> where T: IInit, ICloneable, new()
     {
-        Point<T>? beg = null;
-        Point<T>? end = null;
+        public Point<T>? beg = null;
+        public Point<T>? end = null;
         Random rnd = new Random();
 
         int count = 0;
@@ -106,10 +106,10 @@ namespace ConsoleApp3
                 pred.Next = oddNumElem;
                 pred = oddNumElem.Next;
                 pred.Pred = oddNumElem;
+                count++;
             }
             newItem = MakeRandomItem();
             AddToEnd(newItem);
-            count = (count-2)*2 + 1;
         }
         public MyList() { count = 0; }
         public MyList(int size) 
@@ -212,6 +212,7 @@ namespace ConsoleApp3
             T newData = (T)collection[0].Clone();
             beg = new Point<T> (newData);
             end = beg;
+            count++;
             for(int i = 1; i<collection.Length; i++)
             {
                 AddToEnd(collection[i]);
