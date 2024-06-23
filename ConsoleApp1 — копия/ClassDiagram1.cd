@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Lab12_4.CollectionHandlerEventArgs">
+    <Position X="12.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CollectionHandlerEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12_4.JournalEntry">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAEAgEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Journal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12_4.Journal">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAggAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Journal.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12_4.MyCollection&lt;T&gt;">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIAAEAAAAAAABAQCAAABAAAAAAAAAAECAAAAABQIAA=</HashCode>
+      <FileName>MyCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Lab12_4.MyEnumerator&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABAAAAACAAgAAgAAAAAAAoAAAAAAAAAA=</HashCode>
+      <FileName>MyCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Lab12_4.MyList&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGIFAEACAABABAAADAAABgQAAAAAAAAEDAEAAABQIAk=</HashCode>
+      <FileName>MyList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12_4.MyObservableCollection&lt;T&gt;">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAACAAABAVAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyObservableCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12_4.Point&lt;T&gt;" Collapsed="true">
+    <Position X="10.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAEAAAAAAAAAAAAAJAAEAAAAAAAAAA=</HashCode>
+      <FileName>Point.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Lab12_4.Program" Collapsed="true">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Delegate Name="Lab12_4.CollectionHandler">
+    <Position X="6.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyObservableCollection.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
