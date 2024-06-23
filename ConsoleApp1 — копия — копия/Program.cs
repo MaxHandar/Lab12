@@ -11,69 +11,90 @@ using System.Threading.Tasks;
 
 namespace Lab12_4
 {
-    internal static class VehicleExtensions
+    public static class VehicleExtensions
     {
-        static double isAllWD(OffRoad offRoad)
+        // Метод для определения коэффициента в зависимости от наличия полного привода
+        public static double AllWDCoefficient(this OffRoad offRoad)
         {
-            if (offRoad.AllWD)
-            {
-                return 1.0;
-            }
-            return 0.5;
+            return offRoad.AllWD ? 1.0 : 0.5;
         }
+
+        // Метод для "выпрямления" очереди списков автомобилей в один перечень
         public static IEnumerable<Vehicle> Flatten(this Queue<List<Vehicle>> vehicleQueue)
         {
-            return vehicleQueue.SelectMany(vehicle => vehicle);
+            return vehicleQueue.SelectMany(vehicleList => vehicleList);
         }
 
-        public static IEnumerable<Vehicle> SelectOffRoadVehicles(this IEnumerable<Vehicle> vehicles)
+        // Метод для выборки внедорожников с информацией о типе бездорожья
+        public static IEnumerable<OffRoadInfo> SelectOffRoadVehicles(this IEnumerable<Vehicle> vehicles)
         {
-            return (IEnumerable<Vehicle>)vehicles.OfType<OffRoad>()
-                           .Select(vehicle => new
+            return vehicles.OfType<OffRoad>()
+                           .Select(offRoad => new OffRoadInfo
                            {
-                               Name = vehicle.Brand,
-                               Price = vehicle.Price,
-                               GroundType = (vehicle as OffRoad).GroundType
+                               Name = offRoad.Brand,
+                               Price = offRoad.Price,
+                               GroundType = offRoad.GroundType
                            });
         }
 
-        public static IEnumerable<Vehicle> SelectVehiclesWithPriceQualityRatio(this IEnumerable<Vehicle> vehicles)
+        // Метод для выборки автомобилей с расчетом соотношения цена-качество
+        public static IEnumerable<VehiclePriceQuality> SelectVehiclesWithPriceQualityRatio(this IEnumerable<Vehicle> vehicles)
         {
-            return (IEnumerable<Vehicle>)vehicles.OfType<OffRoad>()
-                           .Select(vehicle => new
+            return vehicles.OfType<OffRoad>()
+                           .Select(offRoad => new VehiclePriceQuality
                            {
-                               Vehicle = vehicle,
-                               PriceQualityRatio = (vehicle.Price / 500) / isAllWD(vehicle)
+                               Name = offRoad.Brand,
+                               ID = offRoad.id.Number,
+                               PriceQualityRatio = (offRoad.Price / 500) / offRoad.AllWDCoefficient()
                            })
-                           .OrderByDescending(item => item.PriceQualityRatio)
-                           .Select(item => new
-                           {
-                               Name = item.Vehicle.Brand,
-                               ID = item.Vehicle.id.Number,
-                               item.PriceQualityRatio
-                           });
+                           .OrderByDescending(item => item.PriceQualityRatio);
         }
 
-        public static IEnumerable<IGrouping<string, Vehicle>> GroupByGroundType(this IEnumerable<Vehicle> vehicles)
+        // Метод для группировки по типу бездорожья
+        public static IEnumerable<IGrouping<string, OffRoad>> GroupByGroundType(this IEnumerable<Vehicle> vehicles)
         {
-            return vehicles.Where(x => x is OffRoad)
-                           .GroupBy(vehicle => ((OffRoad)vehicle).GroundType);
+            return vehicles.OfType<OffRoad>()
+                           .GroupBy(offRoad => offRoad.GroundType);
         }
 
-        public static IEnumerable<Vehicle> JoinWithGroups(this IEnumerable<Vehicle> vehicles, IEnumerable<dynamic> groups)
+        // Метод для соединения автомобилей с группами
+        public static IEnumerable<VehicleGroupInfo> JoinWithGroups(this IEnumerable<Vehicle> vehicles, IEnumerable<Group> groups)
         {
-            return (IEnumerable<Vehicle>)vehicles.Join(groups,
+            return vehicles.Join(groups,
                                  vehicle => vehicle.Brand,
-                                 t => t.Brand,
-                                 (vehicle, t) => new
+                                 group => group.Brand,
+                                 (vehicle, group) => new VehicleGroupInfo
                                  {
                                      Name = vehicle.Brand,
-                                     Country = t.Country,
+                                     Country = group.Country,
                                      ID = vehicle.id.Number,
                                  });
         }
     }
-    internal class Group 
+
+    // Классы для возвращаемых типов методов расширения
+    public class OffRoadInfo
+    {
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public string GroundType { get; set; }
+    }
+
+    public class VehiclePriceQuality
+    {
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public double PriceQualityRatio { get; set; }
+    }
+
+    public class VehicleGroupInfo
+    {
+        public string Name { get; set; }
+        public string Country { get; set; }
+        public int ID { get; set; }
+    }
+
+    public class Group 
     {
         Random rnd = new Random();
         public string Country { get; set; }
@@ -91,11 +112,11 @@ namespace Lab12_4
         }
     }
 
-    internal class Program
+    public class Program
     {
 
         Random rnd = new Random();
-        static List<Vehicle> MakeCollection(int length, Random rnd)
+        public static List<Vehicle> MakeCollection(int length, Random rnd)
         {
             var list = new List<Vehicle>();
             for (int i = 0; i < length; i++)
@@ -107,7 +128,7 @@ namespace Lab12_4
             }
             return list;
         }
-        static void PrintCollection(List<Vehicle> list)
+        public static void PrintCollection(List<Vehicle> list)
         {
             if (list.Count == 0)
             {
